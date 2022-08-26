@@ -29,15 +29,12 @@ app.post('/tweets', (req, res) => {
         ...tweet,
         avatar,
         id: tweets.length + 1
-    })
+    });
 
     res.send('OK');
 });
 
-app.get('/tweets', (req, res) => {
-
-    res.send(tweets.slice(-10));
-});
+app.get('/tweets', (req, res) => res.send(tweets.slice(-10)));
 
 
 app.listen(5000, () => console.log('Listen on 5000'));
