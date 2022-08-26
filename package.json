@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "type": "module",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/app.js"
   },
   "keywords": [],
-  "author": "TRony Castro",
+  "author": "Rony Castro",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
