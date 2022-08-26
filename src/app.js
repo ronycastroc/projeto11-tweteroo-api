@@ -8,13 +8,11 @@ app.use(express.json());
 
 const users = [];
 const tweets = [];
-let avatar = ''
+let avatar;
 
 app.post('/sign-up', (req, res) => {     
     const signup = req.body;
     avatar = req.body.avatar;
-    
-    //signup.id = user.length + 1;
 
     users.push({
         ...signup,
@@ -38,7 +36,7 @@ app.post('/tweets', (req, res) => {
 
 app.get('/tweets', (req, res) => {
 
-    res.send('OK');
+    res.send(tweets.slice(-10));
 });
 
 
