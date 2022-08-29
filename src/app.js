@@ -10,30 +10,52 @@ const users = [];
 const tweets = [];
 
 app.post('/sign-up', (req, res) => {     
-    const signup = req.body;
+    const { username, avatar } = req.body;
+
+    if(!username || !avatar) {
+        res.status(400).send({message: 'Preencha todos os campos!'})
+    }
 
     users.push({
-        ...signup,
+        username,
+        avatar,
         id: users.length + 1
     });
 
-    res.send('OK');
+    res.status(201).send({message:'OK'});
 });
 
 app.post('/tweets', (req, res) => {
-    const tweet = req.body;
-    const pic = users.find(value => value.avatar);
+    const { user: username} = req.headers;
+    const { tweet } = req.body;
+    const { avatar } = users.find(value => value.username === username);
+
+    if(!username || !tweet) {
+        res.status(400).send({message: 'Preencha todos os campos!'})
+    }
 
     tweets.push({
-        ...tweet,
-        avatar: pic.avatar,
+        username,
+        tweet,
+        avatar,
         id: tweets.length + 1
     });
 
-    res.send('OK');
+    res.status(201).send({message:'OK'});
 });
 
-app.get('/tweets', (req, res) => res.send(tweets.slice(-10)));
+app.get('/tweets', (req, res) => {
+    res.send(tweets.slice(-10).reverse())
+});
+
+app.get('/tweets/:username', (req, res) => {
+    const { username } = req.params;
+
+    const userTweet = tweets.filter(value => value.username === username);
+
+    res.send(userTweet);
+
+})
 
 
 app.listen(5000, () => console.log('Listen on 5000'));
