@@ -8,11 +8,9 @@ app.use(express.json());
 
 const users = [];
 const tweets = [];
-let avatar;
 
 app.post('/sign-up', (req, res) => {     
     const signup = req.body;
-    avatar = req.body.avatar;
 
     users.push({
         ...signup,
@@ -24,10 +22,11 @@ app.post('/sign-up', (req, res) => {
 
 app.post('/tweets', (req, res) => {
     const tweet = req.body;
+    const pic = users.find(value => value.avatar);
 
     tweets.push({
         ...tweet,
-        avatar,
+        avatar: pic.avatar,
         id: tweets.length + 1
     });
 
