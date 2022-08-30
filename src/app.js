@@ -14,6 +14,14 @@ app.post('/sign-up', (req, res) => {
 
     if(!username || !avatar) {
         res.status(400).send({message: 'Preencha todos os campos!'})
+        return;
+    }
+
+    const isUserExist = users.find((value) => value.username === username);
+
+    if (isUserExist) {
+        res.status(400).send({message: 'Usuário existente!'});
+        return;
     }
 
     users.push({
